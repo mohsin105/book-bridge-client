@@ -1,0 +1,26 @@
+Pages
+
+    ---> Intro / Landing 
+    ---> Sign-UP 
+    ---> Sign-In 
+    ---> Book-List 
+    ---> Book-Details 
+            ---book-copy list
+            ---book-review list
+            ---add new book-copy
+            ---
+    ---> Book Create Page
+    ---> Book-Copy Create
+    ---> Request-List Page
+    ---> Request-details page
+    ---> Profile 
+    ---> profile update 
+    ---> Password change
+    ---> Password reset 
+    ---> Borrow-Record List Page
+    ---> Borrow-Record Detail Page
+    ---> Dashboard
+            -- Incoming Requests (owner)
+            -- Outgoing Requests (borrower)
+            -- Active Borrows
+            -- Borrow History
