@@ -2,6 +2,11 @@ import React from 'react';
 import { Route, Routes } from 'react-router';
 import MainLayout from '../layouts/MainLayout';
 import Home from '../pages/Home';
+import Registration from '../pages/Registration';
+import Login from '../pages/Login';
+import BookList from '../pages/BookList';
+import BookDetails from '../pages/BookDetails';
+import AddBook from '../pages/AddBook';
 
 const AppRoutes = () => {
     return (
@@ -9,6 +14,11 @@ const AppRoutes = () => {
             {/* <Route index element={<Home/>}></Route> */}
             <Route element={<MainLayout/>}>
                 <Route path='/' element={<Home/>}></Route>
+                <Route path='sign-up' element={<Registration/>}></Route>
+                <Route path='login' element={<Login/>}></Route>
+                <Route path='books' element={<BookList/>} ></Route>
+                <Route path='book/:id' element={<BookDetails/>}></Route>
+                <Route path='book/add' element={<AddBook/>} />
             </Route>
         </Routes>
     );
