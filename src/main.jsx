@@ -5,11 +5,14 @@ import './index.css'
 import AppRoutes from './routes/AppRoutes.jsx'
 import Home from './pages/Home.jsx'
 import { BrowserRouter } from 'react-router'
+import { AuthProvider } from './context/AuthContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <AppRoutes/>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes/>
+      </BrowserRouter>
+    </AuthProvider>
   </StrictMode>,
 )

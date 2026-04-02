@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import useAuthContext from '../hooks/useAuthContext';
+import { useNavigate } from 'react-router';
 
 const Registration = () => {
     const {register, handleSubmit, formState:{errors,}} = useForm();
     const [showPassword, setShowPassword] = useState(false);
-    const onSubmit = (data) =>{
+    const {user, registerUser} = useAuthContext();
+    const navigate = useNavigate()
+    const onSubmit = async(data) =>{
         console.log(data);
+        try {
+            const response = await registerUser(data);
+            console.log(response);
+            if(response) navigate('/login');
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <section>

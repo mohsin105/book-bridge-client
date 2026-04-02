@@ -16,7 +16,7 @@ const BookDetails = () => {
         apiClient.get(`books/${id}`)
         .then((data)=> {
             setBook(data.data);
-            console.log(data.data);
+            // console.log(data.data);
         })
         .catch(err => console.log(err));
     },[id]);
@@ -32,7 +32,7 @@ const BookDetails = () => {
     useEffect(()=>{
         apiClient.get(`books/${id}/reviews`)
         .then((data)=>{
-            console.log(data.data);
+            // console.log(data.data);
             setReviews(data.data);
         })
     },[id]);
@@ -43,7 +43,7 @@ const BookDetails = () => {
                 {book && (<BookDetailCard book={book}/>)}
             </div>
             <div>
-                {copies && (<BookCopies copies={copies}/>)}
+                {copies && (<BookCopies copies={copies} bookId={id}/>)}
             </div>
             <div className='my-4'>
                 {reviews && (<BookReviews reviews={reviews}/>)}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const BookDetailCard = ({book,}) => {
-    console.log(book);
+    // console.log(book);
     const tags = book?.tags;
     return (
         <section className='border p-4 rounded-md grid grid-cols-2'>

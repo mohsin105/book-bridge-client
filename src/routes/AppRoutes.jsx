@@ -7,6 +7,8 @@ import Login from '../pages/Login';
 import BookList from '../pages/BookList';
 import BookDetails from '../pages/BookDetails';
 import AddBook from '../pages/AddBook';
+import Profile from '../pages/Profile';
+import Dashboard from '../pages/Dashboard';
 
 const AppRoutes = () => {
     return (
@@ -19,6 +21,8 @@ const AppRoutes = () => {
                 <Route path='books' element={<BookList/>} ></Route>
                 <Route path='book/:id' element={<BookDetails/>}></Route>
                 <Route path='book/add' element={<AddBook/>} />
+                <Route path='profile' element={<Profile/>}></Route>
+                <Route path='dashboard' element={<Dashboard/>}></Route>
             </Route>
         </Routes>
     );
