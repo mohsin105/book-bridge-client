@@ -9,6 +9,8 @@ import BookDetails from '../pages/BookDetails';
 import AddBook from '../pages/AddBook';
 import Profile from '../pages/Profile';
 import Dashboard from '../pages/Dashboard';
+import RequestList from '../pages/RequestList';
+import RequestDetails from '../pages/RequestDetails';
 
 const AppRoutes = () => {
     return (
@@ -23,6 +25,8 @@ const AppRoutes = () => {
                 <Route path='book/add' element={<AddBook/>} />
                 <Route path='profile' element={<Profile/>}></Route>
                 <Route path='dashboard' element={<Dashboard/>}></Route>
+                <Route path='requests' element={<RequestList/>} />
+                <Route path='requests/:requestId' element={<RequestDetails/>} />
             </Route>
         </Routes>
     );

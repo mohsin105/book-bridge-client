@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../Button';
 import { useForm } from 'react-hook-form';
 import authApiClient from '../../services/auth-api-client';
 
-const AddCopy = ({setCopyComponent,bookId}) => {
+const AddCopy = ({setCopyComponent,bookId, setCopyCreateMessage,setNewCopyCreated}) => {
     const {register, handleSubmit, formState:{errors,}} = useForm();
     const onSubmit = async(data)=>{
         console.log(data);
         try {
             const response = await authApiClient.post(`books/${bookId}/copies/`,data);
             console.log(response);
+            setCopyCreateMessage("New Copy Created Successfully!!!");
+            setNewCopyCreated(true);
+            setCopyComponent(false);
         } catch (error) {
             console.log(error);
         }

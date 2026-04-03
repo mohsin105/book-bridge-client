@@ -17,7 +17,9 @@ const Sidebar = () => {
                     <Link to={'/profile'}>Profile Page</Link>
                 </li>
                 <li>Your Profile</li>
-                <li>Your Requests</li>
+                <li>
+                    <Link to={'/requests'}>Your Requests</Link>
+                </li>
                 <li>Your Records</li>
                 <li>Your Account</li>
             </ul>

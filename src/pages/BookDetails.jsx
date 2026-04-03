@@ -11,6 +11,7 @@ const BookDetails = () => {
     const [copies, setCopies] = useState(null);
     const [reviews, setReviews] = useState(null);
     const {id} = useParams();
+    const [newCopyCreated, setNewCopyCreated] = useState(false);
     // console.log("Book Id:", id);
     useEffect(()=>{
         apiClient.get(`books/${id}`)
@@ -27,7 +28,7 @@ const BookDetails = () => {
             // console.log(data.data);
             setCopies(data.data);
         })
-    },[id]);
+    },[id, newCopyCreated]);
 
     useEffect(()=>{
         apiClient.get(`books/${id}/reviews`)
@@ -43,7 +44,7 @@ const BookDetails = () => {
                 {book && (<BookDetailCard book={book}/>)}
             </div>
             <div>
-                {copies && (<BookCopies copies={copies} bookId={id}/>)}
+                {copies && (<BookCopies copies={copies} bookId={id} setNewCopyCreated={setNewCopyCreated}/>)}
             </div>
             <div className='my-4'>
                 {reviews && (<BookReviews reviews={reviews}/>)}
