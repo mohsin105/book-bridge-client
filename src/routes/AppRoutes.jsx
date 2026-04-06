@@ -11,6 +11,9 @@ import Profile from '../pages/Profile';
 import Dashboard from '../pages/Dashboard';
 import RequestList from '../pages/RequestList';
 import RequestDetails from '../pages/RequestDetails';
+import RecordList from '../pages/RecordList';
+import RecordDetails from '../pages/RecordDetails';
+import Notifications from '../pages/Notifications';
 
 const AppRoutes = () => {
     return (
@@ -27,6 +30,9 @@ const AppRoutes = () => {
                 <Route path='dashboard' element={<Dashboard/>}></Route>
                 <Route path='requests' element={<RequestList/>} />
                 <Route path='requests/:requestId' element={<RequestDetails/>} />
+                <Route path='records' element={<RecordList/>}/>
+                <Route path='records/:id' element={<RecordDetails/>} />
+                <Route path='notifications' element={<Notifications/>}/>
             </Route>
         </Routes>
     );

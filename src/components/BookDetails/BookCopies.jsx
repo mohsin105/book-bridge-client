@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import BookCopyCard from './BookCopyCard';
 import Button from '../Button';
 import { Link } from 'react-router';
 import AddCopy from './AddCopy';
 import SuccessAlert from '../SuccessAlert';
+import UpdateCopy from './UpdateCopy';
 
-const BookCopies = ({copies,bookId,setNewCopyCreated}) => {
+const BookCopies = ({copies,bookId,setReload}) => {
     const [copyComponent, setCopyComponent] = useState(false);
     const [copyCreateMessage, setCopyCreateMessage] = useState("");
+    const [updateForm, setUpdateForm] = useState(false);
+    const updateFormRef = useRef(null); //to capture the updateform component, and apply DOM method on it
+    const [copyUpdateObj, setCopyUpdateObj] = useState(null); //the book-copy object that is being updated
+    // To move the screen to UpdateForm Component
+    useEffect(()=>{
+        if(updateForm && updateFormRef.current){
+            updateFormRef.current.scrollIntoView({
+                behaviour:'smooth',
+                block:'start'
+            })
+        }
+    },[updateForm]);
     return (
         <section>
             <div className='flex justify-between'>
@@ -28,7 +41,7 @@ const BookCopies = ({copies,bookId,setNewCopyCreated}) => {
                             setCopyComponent={setCopyComponent} 
                             bookId={bookId}
                             setCopyCreateMessage={setCopyCreateMessage}
-                            setNewCopyCreated={setNewCopyCreated}/>
+                            setReload={setReload}/>
                     </div>
                 )}
             </div>
@@ -37,11 +50,26 @@ const BookCopies = ({copies,bookId,setNewCopyCreated}) => {
                     <SuccessAlert message={copyCreateMessage}/>
                 </div>
             )}
+            {/* Copies List */}
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
                 {copies.map(copy=>(
-                    <BookCopyCard key={copy.id} copy={copy}/>
+                    <BookCopyCard 
+                        key={copy.id} 
+                        copy={copy} 
+                        setUpdateForm={setUpdateForm} 
+                        setCopyUpdateObj={setCopyUpdateObj}/>
                 ))}
             </div>
+            {/* Copy Update Form */}
+            {updateForm && (
+                <div ref={updateFormRef}>
+                    <UpdateCopy 
+                        setUpdateForm={setUpdateForm}
+                        setCopyUpdateObj={setCopyUpdateObj} 
+                        copyUpdateObj={copyUpdateObj}
+                        setReload={setReload}/>
+                </div>
+            )}
         </section>
     );
 };

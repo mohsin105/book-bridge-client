@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import useAuthContext from '../hooks/useAuthContext';
 
 const Navbar = ({isSideBarOpen, setIsSideBarOpen}) => {
     const {user,logOutUser}= useAuthContext();
+    const navigate = useNavigate();
     const signOutUser = ()=>{
         try {
-            logOutUser()
+            logOutUser();
+            navigate('/');
         } catch (error) {
             console.log(error);
         }
@@ -36,7 +38,7 @@ const Navbar = ({isSideBarOpen, setIsSideBarOpen}) => {
                 {user? (
                     <button
                         onClick={()=>signOutUser()}
-                        className='p-2 rounded-md bg-gray-400'>
+                        className='p-2 rounded-md bg-gray-400 hidden md:block'>
                         LogOut
                     </button>
                 ):(

@@ -20,8 +20,12 @@ const Sidebar = () => {
                 <li>
                     <Link to={'/requests'}>Your Requests</Link>
                 </li>
-                <li>Your Records</li>
-                <li>Your Account</li>
+                <li>
+                    <Link to={'/records'} >Your Records</Link>
+                </li>
+                <li>
+                    <Link to={'/notifications'}>Notifications</Link>
+                </li>
             </ul>
         </div>
     );

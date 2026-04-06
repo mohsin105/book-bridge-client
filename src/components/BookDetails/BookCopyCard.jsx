@@ -3,11 +3,14 @@ import Button from '../Button';
 import { useForm } from 'react-hook-form';
 import authApiClient from '../../services/auth-api-client';
 import SuccessAlert from '../SuccessAlert';
+import useAuthContext from '../../hooks/useAuthContext';
 
-const BookCopyCard = ({copy,}) => {
+const BookCopyCard = ({copy,setUpdateForm,setCopyUpdateObj}) => {
     const [requestForm, setRequestForm] = useState(false);
     const {register, handleSubmit, formState:{errors}} = useForm();
     const [requestSuccessMessage, setRequestSuccessMessage]  = useState("");
+    
+    const {user} = useAuthContext();
     const onSubmit = async(data) =>{
         // console.log(data);
         const requestData = {...data,'book_copy':copy.id};
@@ -46,10 +49,23 @@ const BookCopyCard = ({copy,}) => {
                 <span className='font-semibold'>Owner Note: </span> 
                 {copy.note}
             </p>
-            <div onClick={()=>setRequestForm(true)}>
-                <Button 
-                action={'action'} 
-                children={`${copy.availability_status=='BORROWED'? 'Reserve' :'Request to Borrow'}`} />
+            <div>
+                {user && user.id ===copy.owner.id? (
+                    <button 
+                        onClick={()=>{
+                            setUpdateForm(true);
+                            setCopyUpdateObj(copy);
+                        }}
+                        className='p-2 rounded-md bg-violet-400 hover:bg-violet-300'>
+                        Update
+                    </button>
+                ) :(
+                    <div onClick={()=>setRequestForm(true)}>
+                        <Button 
+                        action={'action'} 
+                        children={`${copy.availability_status==='BORROWED'? 'Reserve' :'Request to Borrow'}`} />
+                    </div>
+                )}
             </div>
             {requestForm && (
                 <div className='my-2 bg-gray-200 rounded-md'>
