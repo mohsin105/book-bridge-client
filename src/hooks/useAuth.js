@@ -36,11 +36,21 @@ const useAuth=()=>{
         try {
             const response = await apiClient.post('auth/users/', userData);
             console.log(response);
-            return {'success':true, 'message':'Registration Successfull!!!'}
+            return {'success':true, 'message':'Registration Successfull!!!. An email has been sent to you with activation-link!'}
         } catch (error) {
             console.log(error);
         }
     };
+
+    const activateAccount = async(userData)=>{
+        try {
+            const response = await apiClient.post(`auth/users/activation/`, userData);
+            console.log(response);
+            return{'success': true, 'message':'Account activated Successfully!!!'};
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const  loginUser = async(userData) =>{
         try {
@@ -65,11 +75,50 @@ const useAuth=()=>{
 
     };
 
-    const passwordChange = () =>{
-
+    // set_password -> Logged In User
+    const passwordChange = async(userData) =>{
+        try {
+            const response = authApiClient.post('auth/users/set_password', userData);
+            console.log(response);
+            return {'success':true, 'message':"Password Changed Successfully!!!"}
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    return {user,registerUser, loginUser, logOutUser, updateUserProfile, passwordChange };
+    // Forgot Password -> Logged Out User
+    const resetPassword = async(userData) =>{
+        try {
+            const response = await apiClient.post('auth/users/reset_password/', userData);
+            console.log(response);
+            return {'success':true, 'message':'An email has been sent with verification link'};
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const resetPasswordConfirm = async(userData)=>{
+        try {
+            const response = await apiClient.post('auth/users/reset_password_confirm/', userData);
+            console.log(response);
+            // Check response before returning success message. Response could be unsuccessful. 
+            return {'success':true, 'message':'Password Reset Successfully!!!'}
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return {
+        user,
+        registerUser, 
+        loginUser, 
+        logOutUser, 
+        updateUserProfile, 
+        passwordChange, 
+        activateAccount,
+        resetPassword,
+        resetPasswordConfirm
+     };
 };
 
 export default useAuth;

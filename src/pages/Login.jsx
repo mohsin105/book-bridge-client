@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuthContext from '../hooks/useAuthContext';
-import { Navigate, useNavigate } from 'react-router';
+import { Link, Navigate, useNavigate } from 'react-router';
 
 const Login = () => {
     const {register,handleSubmit ,formState:{errors, isSubmitting}} = useForm();
@@ -47,6 +47,13 @@ const Login = () => {
                         <input 
                             type="checkbox" 
                             onClick={()=> setShowPassword(!showPassword)}/>Show Password
+                        <div>
+                            <Link 
+                                to={'/password/reset'}
+                                className='text-cyan-800 hover:text-cyan-500'>
+                                Forgot Password? 
+                            </Link>
+                        </div>
                         <button 
                             className='w-full text-lg font-semibold bg-cyan-300 hover:bg-cyan-500 p-4 rounded-md'>
                             Login

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router';
 import useAuthContext from '../hooks/useAuthContext';
+import { MdOutlineNotificationsActive } from 'react-icons/md';
 
 const Navbar = ({isSideBarOpen, setIsSideBarOpen}) => {
     const {user,logOutUser}= useAuthContext();
@@ -36,11 +37,16 @@ const Navbar = ({isSideBarOpen, setIsSideBarOpen}) => {
             </div>
             <div>
                 {user? (
-                    <button
-                        onClick={()=>signOutUser()}
-                        className='p-2 rounded-md bg-gray-400 hidden md:block'>
-                        LogOut
-                    </button>
+                    <div className='flex gap-4'>
+                        <div className='size-10 rounded-full bg-violet-600 hover:bg-violet-300 flex justify-center items-center'>
+                            <MdOutlineNotificationsActive className='text-xl' />
+                        </div>
+                        <button
+                            onClick={()=>signOutUser()}
+                            className='p-2 rounded-md bg-gray-400 hidden md:block'>
+                            LogOut
+                        </button>
+                    </div>
                 ):(
                     <div className=' text-shadow-white  space-x-2 hidden md:block'>
                         <Link to={'sign-up'} className=''>

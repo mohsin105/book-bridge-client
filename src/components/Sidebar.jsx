@@ -16,7 +16,6 @@ const Sidebar = () => {
                 <li>
                     <Link to={'/profile'}>Profile Page</Link>
                 </li>
-                <li>Your Profile</li>
                 <li>
                     <Link to={'/requests'}>Your Requests</Link>
                 </li>
@@ -26,6 +25,7 @@ const Sidebar = () => {
                 <li>
                     <Link to={'/notifications'}>Notifications</Link>
                 </li>
+                <li>Premium Membership</li>
             </ul>
         </div>
     );

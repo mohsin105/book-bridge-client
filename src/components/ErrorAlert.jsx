@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ErrorAlert = () => {
+const ErrorAlert = ({message}) => {
     return (
-        <div>
-            
+        <div className='p-1 rounded-sm bg-rose-300 my-2'>
+            {message}
         </div>
     );
 };

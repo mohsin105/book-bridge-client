@@ -7,13 +7,18 @@ const Registration = () => {
     const {register, handleSubmit, formState:{errors,}} = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const {user, registerUser} = useAuthContext();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [successMessage, setSuccessMessage] = useState('');
     const onSubmit = async(data) =>{
+        delete data.confirm_password;
         console.log(data);
         try {
             const response = await registerUser(data);
             console.log(response);
-            if(response) navigate('/login');
+            if(response.success) {
+                setSuccessMessage(response.message);
+                navigate('/login');
+            };
         } catch (error) {
             console.log(error);
         }

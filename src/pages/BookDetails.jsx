@@ -36,7 +36,7 @@ const BookDetails = () => {
             // console.log(data.data);
             setReviews(data.data);
         })
-    },[id]);
+    },[id,reload]);
     return (
         <section className='w-11/12 md:w-5/6 mx-auto'>
             <h1 className='text-2xl font-semibold text-center my-10'>Book Details Page</h1>
@@ -47,7 +47,7 @@ const BookDetails = () => {
                 {copies && (<BookCopies copies={copies} bookId={id} setReload={setReload}/>)}
             </div>
             <div className='my-4'>
-                {reviews && (<BookReviews reviews={reviews}/>)}
+                {reviews && (<BookReviews reviews={reviews} bookId ={id} setReload={setReload}/>)}
             </div>
             
         </section>
