@@ -16,6 +16,7 @@ import Notifications from '../pages/Notifications';
 import ResetPassword from '../pages/ResetPassword';
 import ActivateAccount from '../components/Registration/ActivateAccount';
 import ResetPasswordConfirm from '../pages/ResetPasswordConfirm';
+import Premium from '../pages/Premium';
 
 const AppRoutes = () => {
     return (
@@ -38,6 +39,7 @@ const AppRoutes = () => {
                 <Route path='activate/:uid/:token' element={<ActivateAccount/>} />
                 <Route path='password/reset' element={<ResetPassword/>} />
                 <Route path='password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>} />
+                <Route path='premium' element={<Premium/>} />
             </Route>
         </Routes>
     );

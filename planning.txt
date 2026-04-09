@@ -24,3 +24,13 @@ Pages
             -- Outgoing Requests (borrower)
             -- Active Borrows
             -- Borrow History
+
+
+Next Version: 
+        -- Pagination System
+        -- Filtering On BookCopies
+        -- Payment System
+        -- Overdue GuardRail
+        -- Book Rating avg Count
+        -- User Review System
+        -- User Review avg Count

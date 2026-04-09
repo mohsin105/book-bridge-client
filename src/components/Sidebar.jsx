@@ -25,7 +25,9 @@ const Sidebar = () => {
                 <li>
                     <Link to={'/notifications'}>Notifications</Link>
                 </li>
-                <li>Premium Membership</li>
+                <li>
+                    <Link to={'/premium'} >Premium Membership</Link>
+                </li>
             </ul>
         </div>
     );
