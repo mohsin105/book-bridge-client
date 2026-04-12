@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router';
-import Sidebar from '../components/sidebar';
+import Sidebar from '../components/Sidebar';
 
 const DashboardLayOut = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
