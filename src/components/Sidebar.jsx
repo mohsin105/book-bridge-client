@@ -9,26 +9,43 @@ const Sidebar = () => {
             {user && (
                 <h1>Welcome {user.first_name}</h1>
             )}
-            <ul className='space-y-4 my-4'>
-                <li>
-                    <Link to={'/dashboard'}>Dashboard</Link>
-                </li>
-                <li>
-                    <Link to={'/profile'}>Profile Page</Link>
-                </li>
-                <li>
-                    <Link to={'/requests'}>Your Requests</Link>
-                </li>
-                <li>
-                    <Link to={'/records'} >Your Records</Link>
-                </li>
-                <li>
-                    <Link to={'/notifications'}>Notifications</Link>
-                </li>
-                <li>
-                    <Link to={'/premium'} >Premium Membership</Link>
-                </li>
-            </ul>
+            {user? (
+                <ul className='space-y-4 my-4'>
+                    <li>
+                        <Link to={'/dashboard'}>Dashboard</Link>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard/profile'}>Profile Page</Link>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard/requests'}>Your Requests</Link>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard/records'} >Your Records</Link>
+                    </li>
+                    <li>
+                        <Link to={'/dashboard/notifications'}>Notifications</Link>
+                    </li>
+                    <li>
+                        <Link to={'/premium'} >Premium Membership</Link>
+                    </li>
+                </ul>
+            ):(
+                <ul className='space-y-4 my-4'>
+                    <li>
+                        <Link to={'/'}>Home</Link>
+                    </li>
+                    <li>
+                        <Link to={'/books'}>Books</Link>
+                    </li>
+                    <li>
+                        <Link to={'/sign-up'}>Sign Up</Link>
+                    </li>
+                    <li>
+                        <Link to={'/login'}>Login</Link>
+                    </li>
+                </ul>
+            )}
         </div>
     );
 };

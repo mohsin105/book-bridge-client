@@ -17,6 +17,8 @@ import ResetPassword from '../pages/ResetPassword';
 import ActivateAccount from '../components/Registration/ActivateAccount';
 import ResetPasswordConfirm from '../pages/ResetPasswordConfirm';
 import Premium from '../pages/Premium';
+import DashboardLayOut from '../layouts/DashboardLayOut';
+import PrivateRoute from '../components/PrivateRoute';
 
 const AppRoutes = () => {
     return (
@@ -28,18 +30,26 @@ const AppRoutes = () => {
                 <Route path='login' element={<Login/>}></Route>
                 <Route path='books' element={<BookList/>} ></Route>
                 <Route path='book/:id' element={<BookDetails/>}></Route>
+                {/* <Route path='dashboard' ></Route> */}
+                
+                <Route path='activate/:uid/:token' element={<ActivateAccount/>} />
+                <Route path='password/reset' element={<ResetPassword/>} />
+                <Route path='password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>} />
+                <Route path='premium' element={<Premium/>} />
+            </Route>
+            <Route path='dashboard' element={
+                <PrivateRoute>
+                    <DashboardLayOut/>
+                </PrivateRoute>
+            }>
+                <Route index element={<Dashboard/>} />
                 <Route path='book/add' element={<AddBook/>} />
                 <Route path='profile' element={<Profile/>}></Route>
-                <Route path='dashboard' element={<Dashboard/>}></Route>
                 <Route path='requests' element={<RequestList/>} />
                 <Route path='requests/:requestId' element={<RequestDetails/>} />
                 <Route path='records' element={<RecordList/>}/>
                 <Route path='records/:id' element={<RecordDetails/>} />
                 <Route path='notifications' element={<Notifications/>}/>
-                <Route path='activate/:uid/:token' element={<ActivateAccount/>} />
-                <Route path='password/reset' element={<ResetPassword/>} />
-                <Route path='password/reset/confirm/:uid/:token' element={<ResetPasswordConfirm/>} />
-                <Route path='premium' element={<Premium/>} />
             </Route>
         </Routes>
     );

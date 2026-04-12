@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/sidebar';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router';
-import useAuthContext from '../hooks/useAuthContext';
+import Sidebar from '../components/sidebar';
 
-const MainLayout = () => {
+const DashboardLayOut = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-    const {user} = useAuthContext();
     return (
         <section>
             <div className='grid grid-cols-12'>
-                {/* Desktop SideBar */}
-                {user && (
-
-                    <div className='col-span-2 hidden md:block  bg-cyan-50  h-screen sticky top-0 left-0' >
-                        <Sidebar/>
-                    </div>
-                )}
-                {/* Mobile SideBar - Always Hidden. Controlled by state*/}
+                {/* Desktop SideBar hidden on small screen. */}
+                <div className='col-span-2 hidden md:block  bg-cyan-50  h-screen sticky top-0 left-0' >
+                    <Sidebar/>
+                </div>
+                {/* Mobile SideBar */}
                 {isSideBarOpen && (
                     <div className='col-span-2 absolute ' >
                         <Sidebar/>
                     </div>
                 )}
-                <div className={`${user? 'col-span-10' :'col-span-12'}`}>
+                <div className='md:col-span-10 col-span-12'>
                     <Navbar 
                         isSideBarOpen={isSideBarOpen} 
                         setIsSideBarOpen={setIsSideBarOpen}/>
@@ -36,4 +31,4 @@ const MainLayout = () => {
     );
 };
 
-export default MainLayout;
+export default DashboardLayOut;

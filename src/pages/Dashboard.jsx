@@ -71,7 +71,7 @@ const Dashboard = () => {
                     )}
                     <div className='flex justify-end my-2'>
                         <div>
-                            <Link to={'/requests'}>
+                            <Link to={'/dashboard/requests'}>
                                 <button className='p-1 px-2 rounded-2xl bg-gray-200 hover:bg-gray-300 shadow-2xl'>
                                     See Full List
                                 </button>
@@ -87,7 +87,7 @@ const Dashboard = () => {
                     )}
                     <div className='flex justify-end my-2'>
                         <div>
-                            <Link to={'/requests'}>
+                            <Link to={'/dashboard/requests'}>
                                 <button className='p-1 px-2 rounded-2xl bg-gray-200 hover:bg-gray-300 shadow-2xl'>
                                     See Full List
                                 </button>
@@ -102,7 +102,7 @@ const Dashboard = () => {
                     )}
                     <div className='flex justify-end my-2'>
                         <div>
-                            <Link to={'/records'}>
+                            <Link to={'/dashboard/records'}>
                                 <button className='p-1 px-2 rounded-2xl bg-gray-200 hover:bg-gray-300 shadow-2xl'>
                                     See Full List
                                 </button>
@@ -117,7 +117,7 @@ const Dashboard = () => {
                     )}
                     <div className='flex justify-end my-2'>
                         <div>
-                            <Link to={'/records'}>
+                            <Link to={'/dashboard/records'}>
                                 <button className='p-1 px-2 rounded-2xl bg-gray-200 hover:bg-gray-300 shadow-2xl'>
                                     See Full List
                                 </button>

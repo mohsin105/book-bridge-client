@@ -12,7 +12,7 @@ const Login = () => {
         console.log(data);
         try {
             const response = await loginUser(data);
-            if(response.success) navigate('/');
+            if(response.success) navigate('/dashboard');
         } catch (error) {
             console.log(error);
         }

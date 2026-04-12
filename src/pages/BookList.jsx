@@ -67,7 +67,7 @@ const BookList = () => {
             </div>
             <div>
                 {user && (
-                    <Link to='/book/add'>
+                    <Link to='/dashboard/book/add'>
                         <Button action={'create'} children={'Add new Book'}/>
                     </Link>
                 )}
