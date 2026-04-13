@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import authApiClient from '../../services/auth-api-client';
 
 const AddCopy = ({setCopyComponent,bookId, setCopyCreateMessage,setReload}) => {
-    const {register, handleSubmit, formState:{errors,}} = useForm();
+    const {register, handleSubmit, formState:{errors,isSubmitting}} = useForm();
     const onSubmit = async(data)=>{
         console.log(data);
         try {
@@ -61,7 +61,7 @@ const AddCopy = ({setCopyComponent,bookId, setCopyCreateMessage,setReload}) => {
                         </div>
                     </div>
                     <div className='space-x-4'>
-                        <Button action={'create'} children={'Create'}/>
+                        <Button action={'create'} children={isSubmitting? 'Creating Copy...' : 'Create'}/>
                         <button
                             onClick={()=> setCopyComponent(false)}
                             className='p-2 bg-amber-600 hover:bg-amber-800 rounded-md'>

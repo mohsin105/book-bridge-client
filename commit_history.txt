@@ -1,0 +1,3 @@
+--
+    --DaisyUI, Empty States, Working on Book Details page
+    -- Navbar Sidebar position and responsiveness

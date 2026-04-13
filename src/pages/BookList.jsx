@@ -7,6 +7,7 @@ import apiClient from '../services/api-client';
 import FilterSearchBooks from '../components/BookList/FilterSearchBooks';
 import useFetchCategories from '../hooks/useFetchCategories';
 import Pagination from '../components/BookList/Pagination';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const BookList = () => {
     const [books, setBooks] = useState([]);
@@ -17,11 +18,13 @@ const BookList = () => {
     const {user} = useAuthContext();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     
     useEffect(()=>{
         fetchBooks();
     },[filterVal, searchVal,orderVal]);
     const fetchBooks = async()=>{
+        setIsLoading(true);
         try {
             // let url = `books/`;
             console.log('filterVal: ', filterVal, 'searchVal: ', searchVal);
@@ -37,6 +40,8 @@ const BookList = () => {
             setBooks(response.data);
         } catch (error) {
             console.log(error);
+        }finally{
+            setIsLoading(false);
         }
     };
     return (
@@ -50,11 +55,18 @@ const BookList = () => {
                     setOrderVal={setOrderVal}/>
             </div>
             <div>
-                {books? (
+                {!isLoading && books.length>0? (
                     <BookListGrid books={books}/>
-                ) :(
+                ) :!isLoading && books.length==0?(
                     <div>
-                        Loading......
+                        <p className='text-4xl my-8 text-center font-semibold'>
+                            No book Found
+                        </p>
+                    </div>
+                ):(
+                    <div className='text-center text-4xl'>
+                        Loading
+                        <LoadingSpinner/>
                     </div>
                 )}
             </div>

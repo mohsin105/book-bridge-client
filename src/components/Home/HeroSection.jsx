@@ -1,5 +1,6 @@
 import React from 'react';
 import heroBg from '../../assets/hero_bg.jpg'
+import { Link } from 'react-router';
 const HeroSection = () => {
     return (
         <div className='relative w-full h-[70vh]'>
@@ -19,12 +20,16 @@ const HeroSection = () => {
                             Borrow, lend, and discover books within your own community — no libraries, no limits.
                         </h2>
                         <div className='text-xl space-x-8 mt-4'>
-                            <button className='p-4 rounded-md bg-amber-600 hover:bg-amber-700'>
-                                Sign Up
-                            </button>
-                            <button className='p-4 rounded-md bg-emerald-600 hover:bg-emerald-700'>
-                                Login
-                            </button>
+                            <Link to={'sign-up'}>
+                                <button className='p-4 rounded-md bg-amber-600 hover:bg-amber-700'>
+                                    Sign Up
+                                </button>
+                            </Link>
+                            <Link to={'login'}>
+                                <button className='p-4 rounded-md bg-emerald-600 hover:bg-emerald-700'>
+                                    Login
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

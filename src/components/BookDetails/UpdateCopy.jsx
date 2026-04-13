@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import authApiClient from '../../services/auth-api-client';
 
 const UpdateCopy = ({setUpdateForm,setCopyUpdateObj,copyUpdateObj,setReload}) => {
-    const {register, handleSubmit, setValue,formState:{errors,}} = useForm();
+    const {register, handleSubmit, setValue,formState:{errors, isSubmitting}} = useForm();
     useEffect(()=>{
         Object.keys(copyUpdateObj).forEach((key)=> setValue(key, copyUpdateObj[key]));
     },[copyUpdateObj]);
@@ -64,7 +64,7 @@ const UpdateCopy = ({setUpdateForm,setCopyUpdateObj,copyUpdateObj,setReload}) =>
                 {/* Buttons */}
                 <div className='space-x-4'>
                     <button className='p-2 rounded-md bg-violet-300 hover:bg-violet-500'>
-                        Update
+                        {isSubmitting? 'Updating...' : 'Update'}
                     </button>
                     <button 
                         onClick={()=>{

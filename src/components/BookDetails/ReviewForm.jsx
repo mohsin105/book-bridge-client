@@ -18,9 +18,11 @@ const ReviewForm = ({bookId, setReload}) => {
     };
     return (
         <div>
-            <form action="" onSubmit={handleSubmit(onSubmit)}>
+            <form 
+                onSubmit={handleSubmit(onSubmit)}
+                className='space-y-2 bg-white p-2'>
                 <div>
-                    <label htmlFor="">Rating: </label>
+                    <label htmlFor="" className=''>Rating: </label>
                     <StarRating
                         onChange={(value)=>setValue('rating', value)}
                         ratingValue={ratingValue}
@@ -39,8 +41,9 @@ const ReviewForm = ({bookId, setReload}) => {
                 <div className='flex justify-end my-2'>
                     <button
                         type='submit' 
-                        className='p-1 bg-cyan-600 hover:bg-cyan-400 rounded-md'>
-                        Submit
+                        disabled={isSubmitting}
+                        className='p-2 bg-cyan-400 hover:bg-cyan-300 rounded-md text-lg'>
+                        {isSubmitting? 'Submitting....' : 'Submit'}
                     </button>
                 </div>
             </form>

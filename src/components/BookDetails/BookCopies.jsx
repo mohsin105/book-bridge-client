@@ -24,7 +24,7 @@ const BookCopies = ({copies,bookId,setReload}) => {
     return (
         <section>
             <div className='flex justify-between'>
-                <h2 className='text-xl font-semibold my-4 '>Copies</h2>
+                <h2 className='text-2xl font-semibold my-4 '>Copies</h2>
                 <div className='self-center' onClick={()=> setCopyComponent(true)}>
                     <Button 
                         action={'create'} 
@@ -52,13 +52,22 @@ const BookCopies = ({copies,bookId,setReload}) => {
             )}
             {/* Copies List */}
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
-                {copies.map(copy=>(
+                {copies.length>0? (
+                    copies.map(copy=>(
                     <BookCopyCard 
                         key={copy.id} 
                         copy={copy} 
                         setUpdateForm={setUpdateForm} 
                         setCopyUpdateObj={setCopyUpdateObj}/>
-                ))}
+                ))
+                ) : (
+                    <div>
+                        <p className='text-xl my-4 text-center font-semibold'>
+                            No Copies Found. 
+                        </p>
+                    </div>
+                )
+                }
             </div>
             {/* Copy Update Form */}
             {updateForm && (
