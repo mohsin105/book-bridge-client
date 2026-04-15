@@ -4,6 +4,7 @@ import RequestList from '../components/Dashboard/RequestList';
 import { Link } from 'react-router';
 import StatsCardSection from '../components/Dashboard/StatsCardSection';
 import useAuthContext from '../hooks/useAuthContext';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Dashboard = () => {
     const {user} = useAuthContext();
@@ -12,13 +13,16 @@ const Dashboard = () => {
     const [borrowedBooks, setBorrowedBooks] = useState([]);
     const [lentBooks, setLentBooks] = useState([]);
     const [statCardData, setStatCardData] = useState(null);
+    const [isStatCardLoading, setIsStatCardLoading] = useState(false);
     useEffect(()=>{
+        setIsStatCardLoading(true);
         authApiClient.get('users/me/dashboard')
         .then(data =>{
             console.log(data);
             setStatCardData(data.data);
         })
         .catch(err => console.log(err))
+        .finally(()=> setIsStatCardLoading(false))
         // console.log(response);
         
     },[]);
@@ -59,8 +63,12 @@ const Dashboard = () => {
         <section>
             <h1 className='text-2xl font-semibold text-center my-4'>Your Dashboard</h1>
             <div className='my-4 px-4'>
-                {statCardData && (
+                {!isStatCardLoading && statCardData? (
                     <StatsCardSection statCardData={statCardData}/>
+                ):!isStatCardLoading && !statCardData? (
+                    <div>Could Not Load Dashboard Stats</div>
+                ):(
+                    <LoadingSpinner/>
                 )}
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-md'>

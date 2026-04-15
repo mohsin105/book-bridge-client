@@ -13,7 +13,9 @@ const RequestList = ({objects,type,role}) => {
             {objects && (
                 <div>
                     {objects.map(obj => (
-                        <Link to={type==='request'? `/requests/${obj.id}` : `/records/${obj.id}`} key={obj.id}>
+                        <Link 
+                            to={type==='request'? `/dashboard/requests/${obj.id}` : `/dashboard/records/${obj.id}`} 
+                            key={obj.id}>
                             <div  className='grid grid-cols-3 gap-2'>
                                 <div>
                                     <p>{type === 'reqeust'? obj.book_copy.book.title : obj.book_copy.book.title}</p>

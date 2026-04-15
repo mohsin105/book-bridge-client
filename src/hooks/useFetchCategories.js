@@ -7,7 +7,7 @@ const useFetchCategories = () =>{
     useEffect(()=>{
         apiClient.get('categories/')
         .then(data =>{
-            console.log(data.data);
+            // console.log(data.data);
             setCategories(data.data);
         })
         .catch(err => console.log(err))

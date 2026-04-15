@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import authApiClient from '../services/auth-api-client';
+import { Link } from 'react-router';
+import NotificationCard from '../components/Notification/NotificationCard';
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
@@ -22,18 +24,11 @@ const Notifications = () => {
                 {notifications && (
                     <div className='space-y-4'>
                         {notifications.map(notification => (
-                            <div 
+                            <NotificationCard 
                                 key={notification.id}
-                                className='bg-cyan-100'>
-
-                                <a href={notification.link}
-                                    
-                                    className='p-2  rounded-md shadow-md'>
-                                        <p className='p-2 rounded-2xl bg-cyan-300 shadow-2xl w-fit'>{notification.notification_type}</p>
-                                        <p>{notification.message}</p>
-                                        <p>{notification.created_at}</p>
-                                </a>
-                            </div>
+                                notification={notification}
+                                >
+                            </NotificationCard>
                         ))}
                     </div>
                 )}

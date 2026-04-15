@@ -3,6 +3,7 @@ import authApiClient from '../services/auth-api-client';
 import RecordCard from '../components/RecordList/RecordCard';
 import { Link } from 'react-router';
 import useAuthContext from '../hooks/useAuthContext';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const RecordList = () => {
     const [records, setRecords] = useState([]);
@@ -10,6 +11,7 @@ const RecordList = () => {
     const {user} = useAuthContext();
     const [owner, setOwner] = useState('');
     const [borrower, setBorrower] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(()=>{
         fetchRecords();
     },[statusFilter, borrower, owner]);
@@ -47,11 +49,18 @@ const RecordList = () => {
                 <div className='flex justify-around'>
                     <p 
                         onClick={()=>setStatusFilter('active')}
-                        className='p-1 px-2 rounded-full bg-rose-300 border border-rose-600 hover:bg-rose-500'>Active</p>
-                    <p className='p-1 px-2 rounded-full bg-rose-300 border border-rose-600 hover:bg-rose-500'>OverDue</p>
+                        className='p-1 px-2 rounded-full bg-rose-300 border border-rose-600 hover:bg-rose-500'>
+                            Active
+                    </p>
+                    <p 
+                        className='p-1 px-2 rounded-full bg-rose-300 border border-rose-600 hover:bg-rose-500'>
+                        OverDue
+                    </p>
                     <p 
                         onClick={()=>setStatusFilter('all')}
-                        className='p-1 px-2 rounded-full bg-rose-300 border border-rose-600 hover:bg-rose-500'>History</p>
+                        className='p-1 px-2 rounded-full bg-rose-300 border border-rose-600 hover:bg-rose-500'>
+                            History
+                    </p>
                 </div>
             </div>
             <div>
@@ -63,17 +72,28 @@ const RecordList = () => {
                     <div>Due Date</div>
                 </div>
                 <div>
-                    {records && (
+                    {!isLoading && records.length>0? (
                         <div className='my-2'>
                             {records.map(record => (
-                                <Link to={`/records/${record.id}`} key={record.id}>
+                                <Link to={`/dashboard/records/${record.id}`} key={record.id}>
                                     <div className='my-2'>
                                         <RecordCard  record={record}/>
                                     </div>
                                 </Link>
                             ))}
                         </div>
-                    )}
+                        ):!isLoading && records.length===0? (
+                            <div className='text-xl text-center font-semibold my-4'>
+                                No Records Yet
+                            </div>
+                        ):!isLoading && !records?(
+                            <div className='text-xl text-center font-semibold my-4'>
+                                Could Not Load Records
+                            </div>
+                        ):(
+                            <LoadingSpinner/>
+                        )
+                    }
                 </div>
             </div>
 

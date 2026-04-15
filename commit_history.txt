@@ -1,3 +1,12 @@
 --
     --DaisyUI, Empty States, Working on Book Details page
     -- Navbar Sidebar position and responsiveness
+
+
+--
+    -- More Working on Empty States: Request, Record Page
+    -- Correcting Frontend Notification Card Link
+    -- Edit Time Stamp, installed dayjs
+    -- Desigining Record Page
+    -- Updated Object-Status field(the choice-fields) to Frontend-friendly format
+    -- 

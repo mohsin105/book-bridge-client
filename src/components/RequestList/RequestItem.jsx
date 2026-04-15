@@ -1,10 +1,11 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { Link } from 'react-router';
 
 const RequestItem = ({request}) => {
 
     return (
-        <Link to={`/requests/${request.id}`}>
+        <Link to={`/dashboard/requests/${request.id}`}>
             <div className='grid grid-cols-4 gap-4 bg-cyan-50 shadow-xl p-2'>
                 <div>
                     <p>{request.book_copy.book.title}</p>
@@ -14,10 +15,10 @@ const RequestItem = ({request}) => {
                     {request.book_copy.owner.first_name}
                 </div>
                 <div>
-                    {request.status}
+                    {request.status_display}
                 </div>
                 <div>
-                    {request.created_at}
+                    {dayjs(request.created_at).format("DD MMM YYYY, hh:mm A")}
                 </div>
             </div>
         </Link>

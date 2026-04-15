@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React from 'react';
 
 const RecordCard = ({record}) => {
@@ -6,8 +7,10 @@ const RecordCard = ({record}) => {
             <div>{record.book_copy.book.title}</div>
             <div>{record.owner.first_name}</div>
             <div>{record.borrower.first_name}</div>
-            <div>{record.transaction_status}</div>
-            <div>{record.due_date}</div>
+            <div>{record.transaction_status_display}</div>
+            <div>
+                {dayjs(record.due_date).format("DD MMM YYYY, hh:mm A")}
+            </div>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import authApiClient from '../services/auth-api-client';
 import useAuthContext from '../hooks/useAuthContext';
 import ExtensionForm from '../components/RecordDetails/ExtensionForm';
 import ExtensionList from '../components/RecordDetails/ExtensionList';
+import dayjs from 'dayjs';
 
 const RecordDetails = () => {
     const {id} = useParams();
@@ -44,11 +45,22 @@ const RecordDetails = () => {
                             <p>Book Title : {recordObj.book_copy.book.title} </p>
                             <p>Owner : {recordObj.book_copy.owner.first_name} </p>
                             <p>Borrower : {recordObj.borrower.first_name} </p>
-                            <p>Status: {recordObj.transaction_status} </p>
-                            <p>Borrowed Date: {recordObj.borrow_date} </p>
-                            <p>Due Date: {recordObj.due_date}</p>
+                            <p>Status: {recordObj.transaction_status_display} </p>
+                            <p>
+                                Borrowed Date: 
+                                {dayjs(recordObj.borrow_date).format("DD MMM YYYY, hh:mm A")}
+                            </p>
+                            <p>
+                                Due Date: 
+                                {dayjs(recordObj.due_date).format("DD MMM YYYY, hh:mm A")}
+                            </p>
                             <p>Extension Count: {recordObj.extension_request_count}</p>
-                            <p>Returned Date: {recordObj.returned_date? recordObj.returned_date : 'Yet to Return'}</p>
+                            <p>
+                                Returned Date: 
+                                {recordObj.returned_date? 
+                                    dayjs(recordObj.returned_date).format("DD MMM YYYY, hh:mm A") : 
+                                    'Yet to Return'}
+                            </p>
                         </div>
                         {/* Action Section */}
                         <div>

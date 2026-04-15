@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import authApiClient from '../services/auth-api-client';
 import RequestItem from '../components/RequestList/RequestItem';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const RequestList = () => {
     const [requests, setRequests] = useState([]);
     const [filterVar, setFilterVar] = useState('sent');
     const [statusFilter, setStatusFilter] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(()=>{
-        authApiClient.get(`borrow/requests/${filterVar}/?status=${statusFilter}`)
+        setIsLoading(true);
+        authApiClient.get(`borrow/requests/${filterVar}/?status=${statusFilter}&?ordering=-created_at`)
         .then(data=> {
             console.log(data.data);
             setRequests(data.data);
+            console.log(data.data.length);
+            
         })
         .catch(err => console.log(err))
+        .finally(()=> setIsLoading(false));
     },[filterVar, statusFilter]);
     return (
         <section className='w-11/12 mx-auto'>
@@ -45,13 +51,24 @@ const RequestList = () => {
                     <div>Status</div>
                     <div>Request Day</div>
                 </div>
-                {requests && (
+                {!isLoading && requests.length>0? (
                     <div>
                         {requests.map(request =>(
                             <RequestItem key={request.id} request={request}/>
                         ))}
                     </div>
-                )}
+                    ):!isLoading && !requests?(
+                        <div>
+                            Could Not Load Requests
+                        </div>
+                    ):!isLoading && requests.length===0?(
+                        <div className='text-xl font-semibold my-4 text-center'>
+                            No Requests Yet
+                        </div>
+                    ):(
+                        <LoadingSpinner/>
+                    )
+                }
             </div>
 
         </section>

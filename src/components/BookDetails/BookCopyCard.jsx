@@ -39,11 +39,11 @@ const BookCopyCard = ({copy,setUpdateForm,setCopyUpdateObj}) => {
             </h5>
             <div className='flex justify-between'>
                 <p className='p-1 rounded-lg bg-emerald-200/80'>
-                    {copy.availability_status}
+                    {copy.availability_status_display}
                 </p>
                 <p className='p-1 rounded-lg bg-violet-200'>
                     <span className='font-semibold'>Condition: </span>
-                    {copy.book_condition}
+                    {copy.book_condition_display}
                 </p>
             </div>
             <p>
