@@ -5,10 +5,12 @@ import { Link } from 'react-router';
 import AddCopy from './AddCopy';
 import SuccessAlert from '../SuccessAlert';
 import UpdateCopy from './UpdateCopy';
+import ErrorAlert from '../ErrorAlert';
 
 const BookCopies = ({copies,bookId,setReload}) => {
     const [copyComponent, setCopyComponent] = useState(false);
     const [copyCreateMessage, setCopyCreateMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [updateForm, setUpdateForm] = useState(false);
     const updateFormRef = useRef(null); //to capture the updateform component, and apply DOM method on it
     const [copyUpdateObj, setCopyUpdateObj] = useState(null); //the book-copy object that is being updated
@@ -41,7 +43,8 @@ const BookCopies = ({copies,bookId,setReload}) => {
                             setCopyComponent={setCopyComponent} 
                             bookId={bookId}
                             setCopyCreateMessage={setCopyCreateMessage}
-                            setReload={setReload}/>
+                            setReload={setReload}
+                            setErrorMessage={setErrorMessage}/>
                     </div>
                 )}
             </div>
@@ -49,6 +52,9 @@ const BookCopies = ({copies,bookId,setReload}) => {
                 <div className='my-2'>
                     <SuccessAlert message={copyCreateMessage}/>
                 </div>
+            )}
+            {errorMessage && (
+                <ErrorAlert message={errorMessage}/>
             )}
             {/* Copies List */}
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>

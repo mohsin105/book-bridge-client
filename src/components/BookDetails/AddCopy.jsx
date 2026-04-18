@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../Button';
 import { useForm } from 'react-hook-form';
 import authApiClient from '../../services/auth-api-client';
 
-const AddCopy = ({setCopyComponent,bookId, setCopyCreateMessage,setReload}) => {
-    const {register, handleSubmit, formState:{errors,isSubmitting}} = useForm();
+const AddCopy = ({setCopyComponent,bookId, setCopyCreateMessage,setReload, setErrorMessage}) => {
+    const {register, handleSubmit, formState:{isSubmitting}} = useForm();
+    
     const onSubmit = async(data)=>{
         console.log(data);
         try {
             const response = await authApiClient.post(`books/${bookId}/copies/`,data);
-            console.log(response);
+            console.log(response.data);
             setCopyCreateMessage("New Copy Created Successfully!!!");
             setReload(true); //to reload the useEffect. to reload the copies-list
             setCopyComponent(false); //remove the copy-form from rendering. 
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
+            setErrorMessage(error.response?.data.details);
         }
     }
     return (

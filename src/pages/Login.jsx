@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuthContext from '../hooks/useAuthContext';
 import { Link, Navigate, useNavigate } from 'react-router';
+import ErrorAlert from '../components/ErrorAlert';
+import FieldErrorAlert from '../components/FieldErrorAlert';
 
 const Login = () => {
     const {register,handleSubmit ,formState:{errors, isSubmitting}} = useForm();
-    const {user,loginUser} = useAuthContext();
+    const {user,loginUser, errorMessage} = useAuthContext();
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const onsubmit = async(data) =>{
@@ -14,7 +16,7 @@ const Login = () => {
             const response = await loginUser(data);
             if(response.success) navigate('/dashboard');
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
         }
     }
     return (
@@ -24,6 +26,7 @@ const Login = () => {
             ):(
                 <div className='w-11/12 sm:w-2/3 md:w-1/3 mx-auto my-10 p-8 bg-gray-100 shadow-xl rounded-md'>
                     <h1 className='font-semibold text-4xl my-8 text-center'>Login Page</h1> 
+                    {errorMessage && (<ErrorAlert message={errorMessage}/>)}
                     <div className='text-lg'>
                         <form action="" onSubmit={handleSubmit(onsubmit)}
                             className='space-y-4'>
@@ -31,20 +34,30 @@ const Login = () => {
                                 <label htmlFor="">Email</label>
                                 <div>
                                     <input 
-                                        {...register('email')}
-                                        type="text"
+                                        {...register('email',{
+                                            required:"Please provide a valid email",
+                                        })}
+                                        type="email"
                                         placeholder='Enter your email'
                                         className='p-4 rounded-md border-2 w-full' />
+                                        {errors.email && (<FieldErrorAlert message={errors.email.message}/>)}
                                 </div>
                             </div>
                             <div>
                                 <label htmlFor="">Password</label>
                                 <div>
                                     <input 
-                                        {...register('password')}
+                                        {...register('password',{
+                                            required:"Password must not be empty",
+                                            minLength:{
+                                                value:8, 
+                                                message:"Password must be 8 characters long"
+                                            }
+                                        })}
                                         type={`${showPassword? 'text': 'password'}`}
                                         placeholder='Enter your password'
                                         className='p-4 rounded-md border-2 w-full'/>
+                                    {errors.password && (<FieldErrorAlert message={errors.password.message}/>)}
                                 </div>
                             </div>
                             <input 
@@ -63,6 +76,12 @@ const Login = () => {
                                     {isSubmitting? 'Logging In...' : 'Login'}
                                 
                             </button>
+                            <div>
+                                No Account yet?  
+                                <Link to={'/sign-up'} className='text-indigo-800 font-semibold ml-2'>
+                                        Register Here
+                                </Link>
+                            </div>
                         </form>
                     </div>
                 </div>

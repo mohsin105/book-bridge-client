@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuthContext from '../hooks/useAuthContext';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import FieldErrorAlert from '../components/FieldErrorAlert';
+import ErrorAlert from '../components/ErrorAlert';
+import SuccessAlert from '../components/SuccessAlert';
 
 const Registration = () => {
-    const {register, handleSubmit, formState:{errors,}} = useForm();
+    const {register, handleSubmit,watch ,formState:{errors,isSubmitting}} = useForm();
     const [showPassword, setShowPassword] = useState(false);
-    const {user, registerUser} = useAuthContext();
+    const {user, registerUser, errorMessage} = useAuthContext();
     const navigate = useNavigate();
     const [successMessage, setSuccessMessage] = useState('');
     const onSubmit = async(data) =>{
@@ -17,7 +20,8 @@ const Registration = () => {
             console.log(response);
             if(response.success) {
                 setSuccessMessage(response.message);
-                navigate('/login');
+                setTimeout(() => navigate('/login', 5000));
+                // navigate('/login');
             };
         } catch (error) {
             console.log(error);
@@ -29,6 +33,8 @@ const Registration = () => {
                 <h1 className='text-4xl font-semibold my-8 text-center'>
                     Registration Page
                 </h1>
+                {errorMessage && <ErrorAlert message={errorMessage}/>}
+                {successMessage && <SuccessAlert message={successMessage}/>}
                 <div>
                     <form 
                         action=""
@@ -38,10 +44,13 @@ const Registration = () => {
                             <label htmlFor="">Email</label>
                             <div>
                                 <input 
-                                    {...register('email',)}
-                                    type="text"
+                                    {...register('email',{
+                                        required:"Email is required"
+                                    })}
+                                    type="email"
                                     placeholder='Email'
                                     className='w-full p-4 border rounded-md' />
+                                {errors.email && (<FieldErrorAlert message={errors.email.message}/>)}
                             </div>
                         </div>
                         <div>
@@ -88,29 +97,47 @@ const Registration = () => {
                             <label htmlFor="">Password</label>
                             <div>
                                 <input 
-                                    {...register('password',)}
+                                    {...register('password',{
+                                        required:"Password is Required",
+                                        minLength:{
+                                            value:8,
+                                            message:"Password must be 8 characters long",
+                                        }
+                                    })}
                                     type={`${showPassword? 'text' : "password"}`}
                                     placeholder='Password'
                                     className='w-full p-4 border rounded-md' />
+                                {errors.password && (<FieldErrorAlert message={errors.password.message}/>)}
                             </div>
                         </div>
                         <div>
                             <label htmlFor="">Confirm Password</label>
                             <div>
                                 <input 
-                                    {...register('confirm_password',)}
+                                    {...register('confirm_password',{
+                                        required:"Confirm Password is Required",
+                                        validate:(value) => value === watch("password") || "Password do not match"
+                                    })}
                                     type={`${showPassword? 'text' : "password"}`}
                                     placeholder='Confirm Password'
                                     className='w-full p-4 border rounded-md' />
+                                {errors.confirm_password && (<FieldErrorAlert message={errors.confirm_password.message}/>)}
                             </div>
                         </div>
                         <input 
                             type="checkbox" 
                             onClick={()=> setShowPassword(!showPassword)}/>Show Password
                         <button 
+                            disabled={isSubmitting}
                             className='w-full text-lg font-semibold rounded-md p-4 bg-emerald-400 hover:bg-emerald-600 '>
-                                Sign Up
+                                {isSubmitting? 'Signing Up....' : 'Sign Up'}
                         </button>
+                        <div>
+                            Already Have an account? 
+                            <Link to={'/login'} className='text-indigo-800 font-semibold ml-2'>
+                                 Login Here
+                            </Link>
+                        </div>
                     </form>
                 </div>
             </div>

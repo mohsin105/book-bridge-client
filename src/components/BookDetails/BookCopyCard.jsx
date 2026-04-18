@@ -4,11 +4,13 @@ import { useForm } from 'react-hook-form';
 import authApiClient from '../../services/auth-api-client';
 import SuccessAlert from '../SuccessAlert';
 import useAuthContext from '../../hooks/useAuthContext';
+import ErrorAlert from '../ErrorAlert';
 
 const BookCopyCard = ({copy,setUpdateForm,setCopyUpdateObj}) => {
     const [requestForm, setRequestForm] = useState(false);
     const {register, handleSubmit, formState:{errors, isSubmitting, isSubmitSuccessful}} = useForm();
     const [requestSuccessMessage, setRequestSuccessMessage]  = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     
     const {user} = useAuthContext();
     const onSubmit = async(data) =>{
@@ -20,10 +22,12 @@ const BookCopyCard = ({copy,setUpdateForm,setCopyUpdateObj}) => {
             console.log(response);
             if (response.status==201){
                 setRequestSuccessMessage("Request Successful!!!");
-                setRequestForm(false);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error.response.data.detail);
+            setErrorMessage(error.response.data.detail);
+        }finally{
+            setRequestForm(false);
         }
     };
     return (
@@ -31,6 +35,11 @@ const BookCopyCard = ({copy,setUpdateForm,setCopyUpdateObj}) => {
             {requestSuccessMessage && (
                 <div className='my-2'>
                     <SuccessAlert message={requestSuccessMessage} />
+                </div>
+            )}
+            {errorMessage && (
+                <div className='my-2'>
+                    <ErrorAlert message={errorMessage}/>
                 </div>
             )}
             <h5 className='text-lg'>

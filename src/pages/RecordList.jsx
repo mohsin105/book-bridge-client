@@ -27,6 +27,7 @@ const RecordList = () => {
     return (
         <section className='w-11/12 mx-auto p-4'>
             <h1 className='text-2xl text-center font-semibold my-8'>Your Records</h1>
+            {/* Filtering Buttons */}
             <div className='bg-slate-100 p-4 rounded-md my-4 space-y-4'>
                 <div className='flex justify-around'>
                     <p 
@@ -64,10 +65,10 @@ const RecordList = () => {
                 </div>
             </div>
             <div>
-                <div className='grid grid-cols-5 gap-4 p-2 bg-cyan-200 rounded-md text-lg font-semibold'>
+                <div className='grid grid-cols-3  md:grid-cols-5 gap-4 p-2 bg-cyan-200 rounded-md text-lg font-semibold'>
                     <div>Book Name</div>
-                    <div>Owner</div>
-                    <div>Borrower</div>
+                    <div className='hidden md:block'>Owner</div>
+                    <div className='hidden md:block'>Borrower</div>
                     <div>Status</div>
                     <div>Due Date</div>
                 </div>

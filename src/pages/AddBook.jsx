@@ -4,9 +4,10 @@ import apiClient from '../services/api-client';
 import authApiClient from '../services/auth-api-client';
 import { useNavigate } from 'react-router';
 import SuccessAlert from '../components/SuccessAlert';
+import FieldErrorAlert from '../components/FieldErrorAlert';
 
 const AddBook = () => {
-    const {register, handleSubmit, formState:{errors,}} = useForm();
+    const {register, handleSubmit, formState:{errors,isSubmitting, isSubmitSuccessful}} = useForm();
     const [categories, setCategories] = useState([]); //null instead of [] causes error
     const [tags, setTags] = useState([]);
     const [previewImages, setPreviewImages] = useState([]);
@@ -16,7 +17,7 @@ const AddBook = () => {
     useEffect(()=>{
         apiClient.get('categories/')
         .then(data =>{
-            console.log(data.data);
+            // console.log(data.data);
             setCategories(data.data);
         })
         .catch(err => console.log(err))
@@ -24,7 +25,7 @@ const AddBook = () => {
     useEffect(()=>{
         apiClient.get('tags/')
         .then(data=>{
-            console.log(data.data);
+            // console.log(data.data);
             setTags(data.data);
         })
         .catch(err => console.log(err))
@@ -83,7 +84,7 @@ const AddBook = () => {
             console.log(response);
             if(response.status === 201){
                 setSuccessMessage('Book Created Successfully. Taking To Details Page...');
-                setTimeout(()=> navigate(`/books/${response.data.id}`, 5000));
+                setTimeout(()=> navigate(`/book/${response.data.id}`, 5000));
             }
         } catch (error) {
             console.log(error);
@@ -107,17 +108,22 @@ const AddBook = () => {
                         <label htmlFor="">Title</label>
                         <div>
                             <input 
-                                {...register('title')}
+                                {...register('title',{
+                                    required:"Title is required!"
+                                })}
                                 type="text"
                                 placeholder='Book Title'
                                 className='w-full p-2 rounded-md bg-gray-100' />
+                                {errors?.title && <FieldErrorAlert message={errors.title.message}/>}
                         </div>
                     </div>
                     <div>
                         <label htmlFor="">Category</label>
                         <div>
                             <select 
-                                {...register('category')}
+                                {...register('category',{
+                                    required:"Select A Category!"
+                                })}
                                 className='w-full p-2 rounded-md bg-gray-50'
                                 >
                                 <option value="">Select A Category</option>
@@ -130,6 +136,7 @@ const AddBook = () => {
                                     </option>
                                 ))}
                             </select>
+                            {errors.category && (<FieldErrorAlert message={errors.category.message}/>)}
                         </div>
                     </div>
                     <div>
@@ -141,7 +148,9 @@ const AddBook = () => {
                                     className='text-lg space-x-2 '
                                     >
                                     <input 
-                                        {...register('tags')}
+                                        {...register('tags',{
+                                            required:'Put some Tag to the Book',
+                                        })}
                                         
                                         type="checkbox"
                                         placeholder=''
@@ -149,39 +158,48 @@ const AddBook = () => {
                                         value={tag.id}/>
                                         {tag.name}
                                 </span>
-                                    
                             ))}
+                            {errors.tags && (<FieldErrorAlert message={errors.tags.message}/>)}
                         </div>
                     </div>
                     <div>
                         <label htmlFor="">Author</label>
                         <div>
                             <input 
-                                {...register('author')}
+                                {...register('author',{
+                                    required:"Author Name is required"
+                                })}
                                 type="text"
                                 placeholder='Author Name'
                                 className='w-full p-2 rounded-md bg-gray-100' />
+                                {errors.author && (<FieldErrorAlert message={errors.author.message} />)}
                         </div>
                     </div>
                     <div>
                         <label htmlFor="">Page Count</label>
                         <div>
                             <input 
-                                {...register('page_count')}
+                                {...register('page_count',{
+                                    required:"How many pages does this book have?"
+                                })}
                                 type="number"
                                 placeholder=''
                                 className='p-2 rounded-md bg-gray-100' />
+                                {errors.page_count && (<FieldErrorAlert message={errors.page_count.message} />)}
                         </div>
                     </div>
                     <div>
                         <label htmlFor="">Description</label>
                         <div>
                             <textarea 
-                                {...register('description')}
+                                {...register('description',{
+                                    required:"Provide some description to the book"
+                                })}
                                 type="textarea"
                                 placeholder='Description about books'
                                 className='w-full p-2 rounded-md bg-gray-100'
                                 rows={8} />
+                                {errors.description && (<FieldErrorAlert message={errors.description.message}/>)}
                         </div>
                     </div>
                     <div>
@@ -205,14 +223,15 @@ const AddBook = () => {
                                             key={i}
                                             className='rounded' />
                                     ))}
-
                                 </div>
                             )}
                         </div>
                     </div>
                     <button 
-                        className='w-full p-4 rounded-md border bg-cyan-400 hover:bg-cyan-600'>
-                        Create Book
+                        type='submit'
+                        disabled={isSubmitting || isSubmitSuccessful}
+                        className='w-full p-4 text-lg font-semibold rounded-md border bg-cyan-400 hover:bg-cyan-600'>
+                        {isSubmitting?'Submitting...' :isSubmitSuccessful? 'Submitted' : 'Create Book'}
                     </button>
                 </form>
             </div>

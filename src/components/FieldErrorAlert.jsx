@@ -1,9 +1,9 @@
 import React from 'react';
 
-const FieldErrorAlert = () => {
+const FieldErrorAlert = ({message}) => {
     return (
-        <div>
-            
+        <div className='text-sm rounded-sm bg-rose-300 my-1 p-1'>
+            {message}
         </div>
     );
 };

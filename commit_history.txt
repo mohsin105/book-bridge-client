@@ -10,3 +10,8 @@
     -- Desigining Record Page
     -- Updated Object-Status field(the choice-fields) to Frontend-friendly format
     -- 
+
+-- 
+    -- designed record page
+    -- Implemented form-validation, error-handling in useAuth, Login, Registration, Book-copy
+    -- re-designed home page cta section

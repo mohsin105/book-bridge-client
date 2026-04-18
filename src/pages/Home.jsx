@@ -22,7 +22,7 @@ const Home = () => {
             <div className='w-11/12 mx-auto'>
                 <FeatureSections/>
             </div>
-            <div className='w-11/12 mx-auto mt-4 bg-pink-50'>
+            <div className='w-11/12 mx-auto my-4 bg-pink-50'>
                 <CTA/>
             </div>
         </div>
